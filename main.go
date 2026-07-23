@@ -12,12 +12,19 @@ import (
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/joho/godotenv"
 
 	"auth-api/internal/auth"
 	"auth-api/internal/config"
 )
 
 func main() {
+	// A local .env file is optional. godotenv.Load does not overwrite variables
+	// already exported by the shell, so deployment configuration keeps priority.
+	if err := godotenv.Load(); err != nil && !errors.Is(err, os.ErrNotExist) {
+		log.Fatalf("load .env: %v", err)
+	}
+
 	cfg, err := config.Load()
 	if err != nil {
 		log.Fatal(err)

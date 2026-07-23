@@ -6,7 +6,7 @@ Le fichier `database-schema/schema.sql` crée également un index unique sur `em
 
 ## Configuration
 
-Copier les variables de `.env.example` dans l'environnement du processus. Générer une clé RSA locale (ne pas la committer) :
+Copier `.env.example` vers `.env` et adapter ses valeurs. Le fichier `.env` est chargé automatiquement au démarrage ; une variable déjà exportée dans le shell reste prioritaire. Générer une clé RSA locale (ne pas la committer) :
 
 ```bash
 openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -out private.pem
@@ -18,8 +18,6 @@ Les variables obligatoires sont `MYSQL_DSN` et soit `JWT_PRIVATE_KEY_FILE`, soit
 ## Démarrage
 
 ```bash
-export MYSQL_DSN='auth_user:change-me@tcp(127.0.0.1:3306)/auth?parseTime=true&charset=utf8mb4'
-export JWT_PRIVATE_KEY_FILE='./private.pem'
 go run .
 ```
 
