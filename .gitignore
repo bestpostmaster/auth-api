@@ -1,0 +1,7 @@
+private.pem
+public.pem
+.env
+/.idea/auth-api.iml
+/.idea/modules.xml
+/.idea/php.xml
+/.idea/vcs.xml
