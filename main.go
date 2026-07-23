@@ -49,10 +49,13 @@ func main() {
 	if err != nil {
 		log.Fatalf("configure JWT signer: %v", err)
 	}
-	loginHandler := auth.NewHandler(auth.NewService(auth.NewRepository(db), issuer))
+	users := auth.NewRepository(db)
+	loginHandler := auth.NewHandler(auth.NewService(users, issuer))
+	addUserHandler := auth.NewAddUserHandler(auth.NewRegistrationService(users))
 
 	mux := http.NewServeMux()
 	mux.Handle("POST /api/login", loginHandler)
+	mux.Handle("POST /api/add-user", addUserHandler)
 	mux.HandleFunc("GET /health", func(w http.ResponseWriter, _ *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
